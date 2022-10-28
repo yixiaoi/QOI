@@ -1,5 +1,6 @@
 package cs107;
 
+
 /**
  * Utility class to manipulate arrays.
  * @apiNote First Task of the 2022 Mini Project
@@ -26,7 +27,19 @@ public final class ArrayUtils {
      * @throws AssertionError if one of the parameters is null
      */
     public static boolean equals(byte[] a1, byte[] a2){
-        return Helper.fail("Not Implemented");
+        if ((a1==null&&a2!=null)|(a2==null&&a1!=null)){
+            throw new AssertionError();
+        }else {
+
+            if (a1.length==a2.length){
+                for (int i=0;i<a1.length;++i){
+                    if (a1[i]!=a2[i]){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -37,7 +50,22 @@ public final class ArrayUtils {
      * @throws AssertionError if one of the parameters is null
      */
     public static boolean equals(byte[][] a1, byte[][] a2){
-        return Helper.fail("Not Implemented");
+        if ((a1==null&&a2!=null)|(a2==null&&a1!=null)){
+            throw new AssertionError();
+        }else {
+            if (a1.length==a2.length){
+                for (int i=0;i<a1.length;++i){
+                    if (a1[i].length==a2[i].length){
+                        for (int j=0;j<a1[i].length;++j){
+                            if (a1[i][j]!=a2[i][j]){
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     // ==================================================================================
@@ -50,7 +78,8 @@ public final class ArrayUtils {
      * @return (byte[]) - array with one element (value)
      */
     public static byte[] wrap(byte value){
-        return Helper.fail("Not Implemented");
+        byte wrapValue []={value};
+        return wrapValue;
     }
 
     // ==================================================================================
@@ -65,8 +94,14 @@ public final class ArrayUtils {
      * @return (int) - Integer representation of the array
      * @throws AssertionError if the input is null or the input's length is different from 4
      */
-    public static int toInt(byte[] bytes){
-        return Helper.fail("Not Implemented");
+    public static int toInt(byte[] bytes) {
+        int toInt;
+        if (bytes.length==4){
+            toInt=bytes[0]<<24|(bytes[1]&0xFF)<<16|(bytes[2]&0xFF)<<8|(bytes[3]&0xFF);
+        }else {
+            throw new AssertionError();
+        }
+        return toInt;
     }
 
     /**
@@ -76,7 +111,12 @@ public final class ArrayUtils {
      * @return (byte[]) - Big Endian representation of the integer
      */
     public static byte[] fromInt(int value){
-        return Helper.fail("Not Implemented");
+        byte[] fromInt =new byte[4];
+        fromInt[0]=(byte)(value>>24);
+        fromInt[1]=(byte)(value>>16);
+        fromInt[2]=(byte)(value>>8);
+        fromInt[3]=(byte)(value);
+        return fromInt;
     }
 
     // ==================================================================================
@@ -90,7 +130,12 @@ public final class ArrayUtils {
      * @throws AssertionError if the input is null
      */
     public static byte[] concat(byte ... bytes){
-        return Helper.fail("Not Implemented");
+        if (bytes==null){
+            throw new AssertionError();
+        }else {
+            return bytes;
+        }
+
     }
 
     /**
@@ -101,7 +146,24 @@ public final class ArrayUtils {
      * or one of the inner arrays of input is null.
      */
     public static byte[] concat(byte[] ... tabs){
-        return Helper.fail("Not Implemented");
+        for (byte[] bytes : tabs) {
+            if (bytes == null) {
+                throw new AssertionError();
+            }
+        }
+        int length=0;
+        for (byte[] bytes:tabs){
+            length+=bytes.length;
+        }
+        int k = 0;
+        byte[] seqByte=new byte[length];
+        for (int i=0;i<tabs.length;++i){
+            for (int j=0;j<tabs[i].length;++j){
+                seqByte[k]=tabs[i][j];
+                ++k;
+            }
+        }
+        return seqByte;
     }
 
     // ==================================================================================
@@ -118,7 +180,16 @@ public final class ArrayUtils {
      * start + length should also be smaller than the input's length
      */
     public static byte[] extract(byte[] input, int start, int length){
-        return Helper.fail("Not Implemented");
+        if (input==null||start>=input.length||start+length>=input.length||start<0||length<1){
+         throw new AssertionError();
+        }
+        byte[] newBytes=new byte[length];
+        int k=0;
+        for (int i=start;i<start+length;++i){
+            newBytes[k]=input[i];
+            ++k;
+        }
+        return newBytes;
     }
 
     /**
@@ -132,7 +203,17 @@ public final class ArrayUtils {
      * or the sum of the elements in sizes is different from the input's length
      */
     public static byte[][] partition(byte[] input, int ... sizes) {
-        return Helper.fail("Not Implemented");
+        byte[][] partition = new byte[sizes.length][];
+        int k = 0;
+        for (int i = 0; i < sizes.length; ++i) {
+            byte[] subPartition=new byte[sizes[i]];
+            for (int j = 0; j < sizes[i]; ++j) {
+                subPartition[j] = input[k];
+                ++k;
+            }
+            partition[i]=subPartition;
+        }
+        return partition;
     }
 
     // ==================================================================================
