@@ -26,7 +26,31 @@ public final class QOIEncoder {
      * @return (byte[]) - Corresponding "Quite Ok Image" Header
      */
     public static byte[] qoiHeader(Helper.Image image){
-        return Helper.fail("Not Implemented");
+        if (image == null || (image.channels() != 3 && image.channels() != 4)
+                || (image.color_space() != 0 && image.color_space() != 1)) {
+            throw new AssertionError();
+        }
+        byte[] header = new byte[14];
+        header[0] = (byte) 133;
+        header[1] = (byte) 111;
+        header[2] = (byte) 105;
+        header[3] = (byte) 102;
+
+        header[4] = (byte) (image.data()[0].length >>> 24);
+        header[5] = (byte) (image.data()[0].length >>> 16);
+        header[6] = (byte) (image.data()[0].length >>> 8);
+        header[7] = (byte) (image.data()[0].length);
+
+        header[8] = (byte) (image.data().length >>> 24);
+        header[9] = (byte) (image.data().length >>> 16);
+        header[10] = (byte) (image.data().length >>> 8);
+        header[11] = (byte) (image.data().length);
+
+        header[12] = image.channels();
+        header[13] = image.color_space();
+
+
+        return header;
     }
 
     // ==================================================================================
@@ -50,7 +74,14 @@ public final class QOIEncoder {
      * @return (byte[]) Encoding of the pixel using the QOI_OP_RGBA schema
      */
     public static byte[] qoiOpRGBA(byte[] pixel){
-        return Helper.fail("Not Implemented");
+        if (pixel.length!=4){
+            throw new AssertionError();
+        }
+        byte[] encoder = new byte [5];
+        encoder [0]=-2;
+        for (int i=1; i<4;i++){
+            encoder [i]= pixel[i-1];}
+        return encoder;
     }
 
     /**
@@ -60,7 +91,11 @@ public final class QOIEncoder {
      * @return (byte[]) - Encoding of the index using the QOI_OP_INDEX schema
      */
     public static byte[] qoiOpIndex(byte index){
-        return Helper.fail("Not Implemented");
+        if (index>=0&&index<63){
+            return new byte[]{index};
+        }else{
+            throw new AssertionError();
+        }
     }
 
     /**
