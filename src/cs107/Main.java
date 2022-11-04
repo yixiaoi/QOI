@@ -40,25 +40,25 @@ public final class Main {
          */
 
         // ========== Test ArrayUtils ==========
-        //assert testWrap();
-        //assert testToInt();
-        //assert testFromInt();
-        //assert testConcatArrayBytes();
-        //assert testConcatBytes();
-        //assert testExtract();
-        //assert testPartition();
-        //assert testImageToChannels();
-        //assert testChannelsToImage();
+        assert testWrap();
+        assert testToInt();
+        assert testFromInt();
+        assert testConcatArrayBytes();
+        assert testConcatBytes();
+        assert testExtract();
+        assert testPartition();
+        assert testImageToChannels();
+        assert testChannelsToImage();
 
         // ========== Test QOIEncoder ==========
-        //assert testQoiHeader();
-        //assert testQoiOpRGB();
-        //assert testQoiOpRGBA();
-        //assert testQoiOpIndex();
-        //assert testQoiOpDiff();
-        //assert testQoiOpLuma();
-        //assert testQoiOpRun();
-        //assert testEncodeData();
+        assert testQoiHeader();
+        assert testQoiOpRGB();
+        assert testQoiOpRGBA();
+        assert testQoiOpIndex();
+        assert testQoiOpDiff();
+        assert testQoiOpLuma();
+        assert testQoiOpRun();
+        assert testEncodeData();
 
         // ========== Test QOIDecoder ==========
         //assert testDecodeHeader();
@@ -68,8 +68,21 @@ public final class Main {
         //assert testDecodeQoiOpLuma();
         //assert testDecodeQoiOpRun();
         //assert testDecodeData();
-
         System.out.println("All the tests passes. Congratulations");
+        Hexdump.hexdump(QOIEncoder.qoiHeader(Helper.readImage("references/EPFL.png")));
+        //Hexdump.hexdump(QOIEncoder.qoiFile(Helper.readImage("references/random.png")));
+        //Hexdump.hexdump(QOIEncoder.qoiFile(Helper.readImage("references/qoi_op_run.png")));
+        //Hexdump.hexdump(QOIEncoder.qoiFile(Helper.readImage("references/qoi_op_diff.png")));
+        //Hexdump.hexdump(QOIEncoder.qoiFile(Helper.readImage("references/qoi_op_index.png")));
+        //Hexdump.hexdump(QOIEncoder.qoiFile(Helper.readImage("references/qoi_op_luma.png")));
+        //Hexdump.hexdump(QOIEncoder.qoiFile(Helper.readImage("references/EPFL.png")));
+        //var encoding=QOIEncoder.qoiFile(Helper.readImage("references/EPFL.png"));
+        //Hexdump.hexdump(encoding,QOISpecification.HEADER_SIZE, encoding.length-QOISpecification.QOI_EOF.length);
+
+
+        //pngToQoi("references/beach.png","beach.qoi");
+        pngToQoi("references/1.png","1.qoi");
+        Diff.diff("references/1.qoi","res/1.qoi");
     }
 
     // ============================================================================================
@@ -101,6 +114,7 @@ public final class Main {
         // Write an image to 'output_file'
         Helper.writeImage(outputFile, computedImage);
     }
+
 
     /**
      * Computes the ratio

@@ -1,6 +1,8 @@
 package cs107;
 
 
+import java.nio.channels.AsynchronousServerSocketChannel;
+
 /**
  * Utility class to manipulate arrays.
  * @apiNote First Task of the 2022 Mini Project
@@ -112,9 +114,9 @@ public final class ArrayUtils {
      */
     public static byte[] fromInt(int value){
         byte[] fromInt =new byte[4];
-        fromInt[0]=(byte)(value>>24);
-        fromInt[1]=(byte)(value>>16);
-        fromInt[2]=(byte)(value>>8);
+        fromInt[0]=(byte)(value>>>24);
+        fromInt[1]=(byte)(value>>>16);
+        fromInt[2]=(byte)(value>>>8);
         fromInt[3]=(byte)(value);
         return fromInt;
     }
@@ -232,7 +234,31 @@ public final class ArrayUtils {
      * or one of the inner arrays of input is null
      */
     public static byte[][] imageToChannels(int[][] input){
-        return Helper.fail("Not Implemented");
+        if (input==null){
+            throw new AssertionError();
+        }else {
+            int length= input[0].length;
+            for (int[] ints : input) {
+                if (ints == null||ints.length!=length) {
+                    throw new AssertionError();
+                }
+            }
+            int j=0;
+            byte[][] channels=new byte[input.length*input[0].length][4];
+            for (int[] ints : input) {
+                for (int anInt : ints) {
+                    channels[j][0] = (byte) (anInt >> 16);
+                    channels[j][1] = (byte) (anInt >> 8);
+                    channels[j][2] = (byte) anInt;
+                    channels[j][3] = (byte) (anInt >> 24);
+                    ++j;
+                }
+
+            }
+            return channels;
+        }
+
+
     }
 
     /**
@@ -250,7 +276,26 @@ public final class ArrayUtils {
      * or width is invalid
      */
     public static int[][] channelsToImage(byte[][] input, int height, int width){
-        return Helper.fail("Not Implemented");
+        if (input==null||input.length!=height*width||input[0].length!=4||height<=0||width<=0){
+            throw new AssertionError();
+        }
+        else {
+            for (int i=0;i<height*width;++i) {
+                if (input[i]==null) {
+                    throw new AssertionError();
+                }
+            }
+            int [][] image=new int[height][width];
+            int k=0;
+            for (int i=0;i<height;++i){
+                for (int j=0;j<width;++j){
+                    image[i][j]=(input[k][3]<<24|input[k][0]<<16|input[k][1]<<8|input[k][2]);
+                    ++k;
+                }
+            }
+            return image;
+        }
+
     }
 
 }
