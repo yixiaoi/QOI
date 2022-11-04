@@ -69,7 +69,7 @@ public final class Main {
         //assert testDecodeQoiOpRun();
         //assert testDecodeData();
         System.out.println("All the tests passes. Congratulations");
-        Hexdump.hexdump(QOIEncoder.qoiHeader(Helper.readImage("references/EPFL.png")));
+        //Hexdump.hexdump(QOIEncoder.qoiHeader(Helper.readImage("references/EPFL.png")));
         //Hexdump.hexdump(QOIEncoder.qoiFile(Helper.readImage("references/random.png")));
         //Hexdump.hexdump(QOIEncoder.qoiFile(Helper.readImage("references/qoi_op_run.png")));
         //Hexdump.hexdump(QOIEncoder.qoiFile(Helper.readImage("references/qoi_op_diff.png")));
@@ -81,8 +81,8 @@ public final class Main {
 
 
         //pngToQoi("references/beach.png","beach.qoi");
-        pngToQoi("references/1.png","1.qoi");
-        Diff.diff("references/1.qoi","res/1.qoi");
+        pngToQoi("references/beach.png","beach.qoi");
+        Diff.diff("references/beach.qoi","res/beach.qoi");
     }
 
     // ============================================================================================

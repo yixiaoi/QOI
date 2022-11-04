@@ -204,10 +204,7 @@ public final class QOIEncoder {
                 }
                 //etape 2
                 if (ArrayUtils.equals(hachage[QOISpecification.hash(image[i])],image[i])){
-
-                        encodeData[index++]=qoiOpIndex(QOISpecification.hash(image[i]));
-
-
+                    encodeData[index++]=qoiOpIndex(QOISpecification.hash(image[i]));
                 }else {
                     hachage[QOISpecification.hash(image[i])]=image[i];
 
