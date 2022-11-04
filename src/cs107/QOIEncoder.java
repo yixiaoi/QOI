@@ -187,8 +187,6 @@ public final class QOIEncoder {
         //ArrayList<byte[]> encodeDateAry=new ArrayList<byte[]>();
         byte[][] hachage=new byte[64][4];
         byte[] pixelprecedent=QOISpecification.START_PIXEL;
-        byte[] pixelTrans=new byte[4];
-        boolean pixelTransCond=true;
         for (int i=0;i<image.length;++i){
             //etape 1
             if (ArrayUtils.equals(pixelprecedent,image[i])){
