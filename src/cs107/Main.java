@@ -40,7 +40,7 @@ public final class Main {
          */
 
         // ========== Test ArrayUtils ==========
-        assert testWrap();
+        System.out.println(testDecodeQoiOpRGBA()+" "+testDecodeQoiOpDiff()+"" +testDecodeQoiOpRun()+" "+testDecodeQoiOpLuma()+" "+testDecodeHeader());
         assert testToInt();
         assert testFromInt();
         assert testConcatArrayBytes();
@@ -61,12 +61,12 @@ public final class Main {
         assert testEncodeData();
 
         // ========== Test QOIDecoder ==========
-        //assert testDecodeHeader();
+        assert testDecodeHeader();
         //assert testDecodeQoiOpRGB();
-        //assert testDecodeQoiOpRGBA();
-        //assert testDecodeQoiOpDiff();
-        //assert testDecodeQoiOpLuma();
-        //assert testDecodeQoiOpRun();
+        assert testDecodeQoiOpRGBA();
+        assert testDecodeQoiOpDiff();
+        assert testDecodeQoiOpLuma();
+        assert testDecodeQoiOpRun();
         //assert testDecodeData();
         System.out.println("All the tests passes. Congratulations");
         //Hexdump.hexdump(QOIEncoder.qoiHeader(Helper.readImage("references/EPFL.png")));
@@ -81,8 +81,8 @@ public final class Main {
 
 
         //pngToQoi("references/beach.png","beach.qoi");
-        pngToQoi("references/beach.png","beach.qoi");
-        Diff.diff("references/beach.qoi","res/beach.qoi");
+        //pngToQoi("references/beach.png","beach.qoi");
+        //Diff.diff("references/beach.qoi","res/beach.qoi");
     }
 
     // ============================================================================================
